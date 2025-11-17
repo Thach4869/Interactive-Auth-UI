@@ -1,0 +1,356 @@
+/* 1. Reset và Import */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,800');
+/* Thêm font-weight 600 để linh hoạt hơn */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    /* Đảm bảo không có margin mặc định không cần thiết */
+    padding: 0;
+}
+
+/* 2. Style cơ bản */
+body {
+    background: #f6f5f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    padding: 20px 0;
+    overflow-x: hidden;
+    /* Ngăn cuộn ngang không mong muốn */
+}
+
+/* 3. Typography & Liên kết */
+h1 {
+    font-weight: 800;
+    /* Tiêu đề chính nên nổi bật hơn */
+    margin: 0;
+}
+
+p {
+    font-size: 14px;
+    font-weight: 400;
+    /* Thay đổi từ 100 thành 400 để dễ đọc hơn */
+    line-height: 1.5;
+    /* Dùng line-height tương đối */
+    letter-spacing: 0.5px;
+    margin: 20px 0 30px;
+}
+
+span {
+    font-size: 12px;
+    /* Kích thước nhỏ hơn để làm chú thích */
+}
+
+a {
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+    margin: 15px 0;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #ff4b2b;
+    /* Thêm hiệu ứng hover nổi bật */
+    text-decoration: underline;
+}
+
+/* 4. Style Form và Input */
+form {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 50px;
+    height: 100%;
+    text-align: center;
+    gap: 10px;
+    /* Thêm gap để quản lý khoảng cách giữa các input tốt hơn */
+}
+
+input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+    /* Thêm bóng chìm nhẹ */
+}
+
+/* 5. Style Button */
+button {
+    border-radius: 25px;
+    /* Tăng bo góc nhẹ để mềm mại hơn */
+    border: 1px solid #ff4b2b;
+    background-color: #ff4b2b;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    /* Tăng độ đậm font */
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+    /* Dùng 'all' để chuyển đổi tất cả thuộc tính */
+    cursor: pointer;
+    margin-top: 10px;
+    /* Thêm margin trên để cách form */
+}
+
+button:hover {
+    opacity: 0.9;
+    box-shadow: 0 4px 6px rgba(255, 75, 43, 0.3);
+    /* Thêm bóng khi hover */
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button.ghost {
+    background-color: transparent;
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+/* 6. Style Container và Hiệu ứng */
+.container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 95%;
+    /* Giới hạn tối đa 95% màn hình để an toàn hơn */
+    min-height: 500px;
+    /* Tăng nhẹ min-height */
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.container.right-panel-active .sign-in-container {
+    transform: translateX(100%);
+}
+
+.sign-up-container {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+}
+
+/* 7. Keyframes */
+@keyframes show {
+
+    0%,
+    49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+/* 8. Overlay - PHẦN CẢI THIỆN LỖI CĂN CHỈNH MÀU CHỮ */
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+
+.container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+}
+
+.overlay {
+    background: #ff416c;
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    color: #ffffff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+    /* Tăng từ 0 lên 50% để lớp phủ dịch chuyển đúng */
+}
+
+.overlay-panel {
+    position: absolute;
+    /* *** ĐÃ TỐI ƯU CĂN CHỈNH NỘI DUNG TẠI ĐÂY *** */
+    display: flex;
+    align-items: center;
+    /* Căn giữa dọc */
+    justify-content: center;
+    /* Căn giữa ngang */
+    flex-direction: column;
+
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+    transform: translateX(-20%);
+}
+
+.container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}
+
+/* 9. Social Icons */
+.social-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    gap: 10px;
+    /* Sử dụng gap để tạo khoảng cách */
+}
+
+.social-container a {
+    border: 1px solid #dddddd;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    transition: border-color 0.2s ease, transform 0.1s ease;
+    margin: 0;
+    /* Xóa margin cũ */
+}
+
+.social-container a:hover {
+    border-color: #ff4b2b;
+    /* Thay đổi màu viền khi hover */
+    transform: translateY(-2px);
+}
+
+.icon-social {
+    width: 18px;
+    /* Giảm nhẹ kích thước icon để trông gọn hơn */
+    height: 18px;
+    color: #333;
+}
+
+/* 10. Media Query (Responsive Design) */
+@media(max-width: 768px) {
+
+    /* Đổi 750px thành 768px cho chuẩn */
+    .container {
+        max-width: 95%;
+        min-height: 600px;
+    }
+
+    form {
+        padding: 0 30px;
+    }
+
+    /* Đơn giản hóa chuyển đổi mobile, loại bỏ các giá trị magic number cũ */
+    .sign-in-container,
+    .sign-up-container {
+        width: 100%;
+        height: 60%;
+        /* Chiếm 60% diện tích bên dưới */
+        top: 40%;
+        left: 0;
+        transition: all 0.6s ease-in-out;
+    }
+
+    /* Overlay - Phần màu hồng/gradient */
+    .overlay-container {
+        width: 100%;
+        left: 0;
+        height: 40%;
+        /* Chiếm 40% diện tích bên trên */
+        border-radius: 10px 10px 0 0;
+        transform: translateY(0);
+    }
+
+    .container.right-panel-active .overlay-container {
+        transform: translateY(150%);
+        /* Dịch chuyển lớp phủ xuống dưới */
+        border-radius: 0 0 10px 10px;
+    }
+
+    .overlay {
+        width: 100%;
+        left: 0;
+        transform: translateX(0);
+    }
+
+    .container.right-panel-active .overlay {
+        transform: translateX(0);
+        /* Đặt lại 0 */
+    }
+
+    .overlay-panel {
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 0 10px;
+        width: 100%;
+    }
+
+    .overlay-left,
+    .overlay-right {
+        position: static;
+        width: 50%;
+        height: 100%;
+        transform: none !important;
+    }
+}
